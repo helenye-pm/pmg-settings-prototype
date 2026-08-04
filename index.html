@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMG Settings — Advertiser Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-body: #F2F2F2;
+      --bg-card: #FFFFFF;
+      --text-primary: #14113B;
+      --text-secondary: #2A274B;
+      --text-tertiary: #5B5F71;
+      --action-primary: #7740BF;
+      --input-label: #4D4D4D;
+      --input-border: #CCCCCC;
+      --input-placeholder: #808080;
+      --msg-warning: #BE4F0E;
+      --border-divider: #CCCCCC;
+      --neutral50: #F2F2F2;
+      --neutral100: #E6E6E6;
+      --neutral300: #B3B3B3;
+      --neutral500: #808080;
+      --neutral700: #4D4D4D;
+      --highlight: #F5DEA3;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header Nav ── */
+    .header-nav {
+      background: var(--bg-card);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+    .logo { height: 40px; }
+    .nav-items { display: flex; gap: 44px; margin-right: 40px; }
+    .nav-item {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      padding: 22px 0;
+      cursor: pointer;
+      text-decoration: none;
+      border-top: 5px solid transparent;
+    }
+    .nav-item.active {
+      color: var(--action-primary);
+      border-top-color: var(--action-primary);
+    }
+
+    /* ── Program Bar ── */
+    .program-bar {
+      background: var(--neutral100);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 102px;
+      gap: 8px;
+    }
+    .program-label {
+      font-size: 14px;
+      color: var(--input-label);
+      padding: 5px 0;
+    }
+    .program-dropdown {
+      background: var(--bg-card);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      padding: 5px 28px 5px 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234D4D4D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      min-width: 200px;
+      cursor: pointer;
+    }
+
+    /* ── Main Layout ── */
+    .main-layout {
+      display: flex;
+      flex: 1;
+      min-width: 1440px;
+    }
+
+    /* ── Left Rail ── */
+    .left-rail {
+      width: 212px;
+      padding: 20px 0 20px 0;
+      flex-shrink: 0;
+      margin-left: 102px;
+    }
+    .rail-heading {
+      font-size: 12px;
+      color: var(--text-primary);
+      letter-spacing: 0.2px;
+      padding: 0 8px 8px 32px;
+    }
+    .rail-item {
+      display: flex;
+      align-items: center;
+      padding: 9px 12px 9px 32px;
+      font-size: 14px;
+      color: var(--text-primary);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .rail-item.active {
+      background: var(--neutral100);
+      font-weight: 500;
+    }
+
+    /* ── Content Area ── */
+    .content-area {
+      flex: 1;
+      padding: 0 70px 32px 0;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      background: var(--neutral50);
+      padding: 16px 0 16px 1px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 36px;
+    }
+
+    /* ── Table Card ── */
+    .table-card {
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    /* Title Area */
+    .title-area {
+      background: var(--bg-card);
+      padding: 24px;
+      border-bottom: 1px solid var(--neutral100);
+    }
+    .title-area h2 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--text-primary);
+    }
+    .title-area p {
+      font-size: 14px;
+      line-height: 18px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Action Bar */
+    .action-bar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--neutral100);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 90px;
+    }
+    .search-input {
+      width: 200px;
+      border: none;
+      border-bottom: 1px solid var(--input-border);
+      padding: 4px 36px 4px 4px;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--text-primary);
+      outline: none;
+      background: transparent;
+      position: relative;
+    }
+    .search-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .search-clear {
+      position: absolute;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .search-clear svg { fill: #5B5F71; }
+
+    /* Data Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+    }
+    .data-table th {
+      text-align: left;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--neutral100);
+      line-height: 18px;
+      white-space: nowrap;
+    }
+    .data-table th .sort-icon {
+      display: inline-block;
+      width: 24px;
+      height: 16px;
+      vertical-align: middle;
+      margin-left: 4px;
+      opacity: 0.5;
+    }
+    .data-table td {
+      font-size: 14px;
+      padding: 12px;
+      border-bottom: 1px solid var(--neutral100);
+      line-height: 18px;
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+    .data-table .col-advertiser { width: 298px; }
+    .data-table .col-settings { width: 319px; }
+    .data-table .col-modified { width: 382px; }
+    .data-table .col-action { width: 57px; text-align: center; }
+
+    .advertiser-link {
+      color: var(--action-primary);
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+    }
+    .highlight-marker {
+      display: inline-block;
+      width: 12px;
+      height: 24px;
+      background: var(--highlight);
+      mix-blend-mode: multiply;
+      position: absolute;
+      left: -15px;
+      top: -3px;
+    }
+    .advertiser-cell { position: relative; padding-left: 15px; }
+
+    .warning-text {
+      color: var(--msg-warning);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .warning-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--msg-warning);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .more-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neutral500);
+    }
+
+    /* Pagination Footer */
+    .pagination-footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--neutral100);
+      padding: 12px 12px 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+    }
+    .pagination-note {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.2px;
+    }
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .rows-per-page {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--input-label);
+    }
+    .rows-select {
+      background: var(--bg-card);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      padding: 5px 24px 5px 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--input-placeholder);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234D4D4D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+      cursor: pointer;
+    }
+    .pagination-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-count {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+    .page-arrows {
+      display: flex;
+      gap: 4px;
+    }
+    .page-arrow {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--neutral700);
+      font-size: 16px;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .footer-text { color: var(--input-label); }
+    .footer-sep { color: var(--neutral500); }
+    .footer-link {
+      color: var(--action-primary);
+      font-weight: 500;
+      font-size: 12px;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Nav -->
+  <header class="header-nav">
+    <img src="dv-pinnacle-logo.svg" alt="DV Pinnacle" class="logo" />
+    <nav class="nav-items">
+      <a class="nav-item" href="#">Settings</a>
+      <a class="nav-item" href="#">Analytics</a>
+      <a class="nav-item active" href="#">Proprietary Media Gardens</a>
+      <a class="nav-item" href="#">Open Web</a>
+      <a class="nav-item" href="#">Resources</a>
+    </nav>
+  </header>
+
+  <!-- Program Bar -->
+  <div class="program-bar">
+    <span class="program-label">Program</span>
+    <select class="program-dropdown">
+      <option>Advertiser Demo</option>
+    </select>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Left Rail -->
+    <aside class="left-rail">
+      <div class="rail-heading">PMG Settings</div>
+      <div class="rail-item active">Advertiser Settings</div>
+      <div class="rail-item">Campaigns</div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content-area">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">Proprietary Media Garden Settings</h1>
+      </div>
+
+      <!-- Table Card -->
+      <div class="table-card">
+        <!-- Title Area -->
+        <div class="title-area">
+          <h2>Advertiser Settings</h2>
+          <p>Configure PMG Settings at the Advertiser level. These settings apply to all PMG campaigns for that Advertiser.</p>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+          <div class="search-wrapper">
+            <input type="text" class="search-input" value="ni" />
+            <button class="search-clear">
+              <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#5B5F71"/><path d="M7 7l6 6M13 7l-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-advertiser">Advertiser <span class="sort-icon">&#x25BF;</span></th>
+              <th class="col-settings">Configured Settings <span class="sort-icon">&#x25BF;</span></th>
+              <th class="col-modified">Last Modified <span class="sort-icon">&#x25BF;</span></th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike LA</a></td>
+              <td><span class="warning-text"><span class="warning-icon">!</span> Not configured</span></td>
+              <td>-</td>
+              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
+            </tr>
+            <tr>
+              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike Seattle</a></td>
+              <td>Meta</td>
+              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
+              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
+            </tr>
+            <tr>
+              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike Portland</a></td>
+              <td>Tiktok, YouTube</td>
+              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
+              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
+            </tr>
+            <tr>
+              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike New York</a></td>
+              <td>Twitter</td>
+              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
+              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
+            </tr>
+            <tr>
+              <td><a class="advertiser-link" href="#">Advertiser Demo</a></td>
+              <td>Brand Suitability, Viewability, Fraud</td>
+              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
+              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination Footer -->
+        <div class="pagination-footer">
+          <span class="pagination-note">Dates are displayed in the MM/DD/YYYY format</span>
+          <div class="pagination-controls">
+            <div class="rows-per-page">
+              <span>Rows per page</span>
+              <select class="rows-select">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select>
+            </div>
+            <div class="pagination-info">
+              <span class="page-count">1-10 of 20</span>
+              <div class="page-arrows">
+                <button class="page-arrow">&#x2758;&#x276E;</button>
+                <button class="page-arrow">&#x276E;</button>
+                <button class="page-arrow">&#x276F;</button>
+                <button class="page-arrow">&#x276F;&#x2758;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <span class="footer-text">© Copyright 2025 DoubleVerify</span>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">About Us</a>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">Contact Us</a>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">Privacy Notice</a>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">Cookie Notice</a>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">Privacy Settings</a>
+    <span class="footer-sep">|</span>
+    <a class="footer-link" href="#">Logout</a>
+  </footer>
+
+</body>
+</html>
