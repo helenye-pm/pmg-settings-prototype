@@ -1,541 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PMG Settings — Advertiser Settings</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMG Settings v2 — Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --plum-50: #F3EAFA; --plum-200: #C9A8E8; --plum-500: #7740BF; --plum-600: #5F339A;
+  --cg-50: #F8F9FA; --cg-100: #F1F3F5; --cg-200: #E5E7EB; --cg-300: #D1D5DB;
+  --cg-400: #9CA3AF; --cg-500: #6B7280; --cg-600: #4B5563; --cg-700: #374151; --cg-900: #111827;
+  --grass-50: #F0FDF4; --grass-500: #22C55E; --grass-600: #16A34A;
+  --tomato-500: #EF4444; --tomato-600: #DC2626;
+  --sky-50: #F0F9FF; --sky-200: #BAE6FD; --sky-500: #0EA5E9; --sky-600: #0284C7; --sky-700: #0369A1;
+  --font: 'Roboto Flex', system-ui, sans-serif;
+  --screen-h: 580px;
+}
+body { font-family: var(--font); color: var(--cg-900); background: var(--cg-300); -webkit-font-smoothing: antialiased; }
 
-    :root {
-      --bg-body: #F2F2F2;
-      --bg-card: #FFFFFF;
-      --text-primary: #14113B;
-      --text-secondary: #2A274B;
-      --text-tertiary: #5B5F71;
-      --action-primary: #7740BF;
-      --input-label: #4D4D4D;
-      --input-border: #CCCCCC;
-      --input-placeholder: #808080;
-      --msg-warning: #BE4F0E;
-      --border-divider: #CCCCCC;
-      --neutral50: #F2F2F2;
-      --neutral100: #E6E6E6;
-      --neutral300: #B3B3B3;
-      --neutral500: #808080;
-      --neutral700: #4D4D4D;
-      --highlight: #F5DEA3;
-    }
+/* SCREEN FRAME */
+.screen { height: var(--screen-h); display: flex; flex-direction: column; overflow: hidden; border-bottom: 1px solid var(--cg-300); }
+.screen.tall { height: auto; overflow: visible; }
+.screen-label { padding: 14px 24px 6px; font-size: 11px; font-weight: 600; color: var(--cg-500); text-transform: uppercase; letter-spacing: 1px; background: var(--cg-300); }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg-body);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+/* NAV */
+.nav { display: flex; align-items: center; height: 56px; padding: 0 24px; background: #fff; box-shadow: rgba(0,0,0,0.05) 0 2px 16px, rgba(0,0,0,0.1) 0 3px 12px; position: relative; z-index: 10; flex-shrink: 0; }
+.nav-logo { display: flex; align-items: center; gap: 8px; margin-right: 32px; }
+.nav-logo svg { height: 22px; }
+.nav-links { display: flex; align-items: stretch; height: 100%; }
+.nav-links a { display: flex; align-items: center; padding: 0 16px; font-size: 14px; font-weight: 500; color: var(--cg-600); text-decoration: none; position: relative; }
+.nav-links a.on { color: var(--plum-600); }
+.nav-links a.on::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--plum-500); border-radius: 0 0 2px 2px; }
+.nav-right { margin-left: auto; }
+.nav-sel { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--cg-200); border-radius: 6px; font-size: 13px; font-weight: 500; }
+.nav-sel .lbl { font-size: 11px; color: var(--cg-400); font-weight: 400; }
 
-    /* ── Header Nav ── */
-    .header-nav {
-      background: var(--bg-card);
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 10;
-    }
-    .logo { height: 40px; }
-    .nav-items { display: flex; gap: 44px; margin-right: 40px; }
-    .nav-item {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-primary);
-      padding: 22px 0;
-      cursor: pointer;
-      text-decoration: none;
-      border-top: 5px solid transparent;
-    }
-    .nav-item.active {
-      color: var(--action-primary);
-      border-top-color: var(--action-primary);
-    }
+/* SHARED */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; font-family: var(--font); cursor: pointer; border: none; }
+.btn-brand { background: var(--plum-500); color: #fff; }
+.btn-outline { background: #fff; color: var(--cg-600); border: 1px solid var(--cg-200); }
+.btn-ghost { background: none; color: var(--plum-600); padding: 6px 8px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+.chip .d { width: 6px; height: 6px; border-radius: 50%; }
+.chip-gray { background: var(--cg-100); color: var(--cg-600); }
+.chip-gray .d { background: var(--cg-400); }
+.chip-green { background: var(--grass-50); color: var(--grass-600); }
+.chip-green .d { background: var(--grass-500); }
+.chip-blue { background: var(--sky-50); color: var(--sky-500); }
+.chip-blue .d { background: var(--sky-500); }
+.muted { color: var(--cg-400); }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 20px; font-size: 12px; font-weight: 600; color: var(--cg-600); text-transform: uppercase; letter-spacing: 0.3px; background: var(--cg-50); border-bottom: 1px solid var(--cg-200); }
+td { padding: 12px 20px; font-size: 14px; border-bottom: 1px solid var(--cg-200); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
 
-    /* ── Program Bar ── */
-    .program-bar {
-      background: var(--neutral100);
-      height: 48px;
-      display: flex;
-      align-items: center;
-      padding: 0 102px;
-      gap: 8px;
-    }
-    .program-label {
-      font-size: 14px;
-      color: var(--input-label);
-      padding: 5px 0;
-    }
-    .program-dropdown {
-      background: var(--bg-card);
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      padding: 5px 28px 5px 8px;
-      font-size: 14px;
-      color: var(--text-primary);
-      font-family: inherit;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234D4D4D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      min-width: 200px;
-      cursor: pointer;
-    }
+/* L1 LAYOUT */
+.s1-layout { display: flex; flex: 1; }
+.s1-side { width: 220px; background: #fff; border-right: 1px solid var(--cg-200); padding: 16px 0; flex-shrink: 0; }
+.s1-side-label { font-size: 11px; font-weight: 600; color: var(--cg-400); text-transform: uppercase; letter-spacing: 0.8px; padding: 8px 20px; }
+.s1-side a { display: block; padding: 8px 20px; font-size: 14px; color: var(--cg-600); text-decoration: none; border-left: 3px solid transparent; }
+.s1-side a.on { background: var(--plum-50); color: var(--plum-600); font-weight: 500; border-left-color: var(--plum-500); }
+.s1-main { flex: 1; padding: 28px 36px; background: var(--cg-50); }
+.s1-main h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.s1-main .sub { font-size: 14px; color: var(--cg-600); margin-bottom: 20px; }
+.s1-side .divider { height: 1px; background: var(--cg-200); margin: 8px 20px; }
+.card { background: #fff; border: 1px solid var(--cg-200); border-radius: 8px; overflow: hidden; }
 
-    /* ── Main Layout ── */
-    .main-layout {
-      display: flex;
-      flex: 1;
-      min-width: 1440px;
-    }
+/* WIZARD CHROME */
+.breadcrumb-bar { display: flex; align-items: center; padding: 10px 24px; background: #fff; border-bottom: 1px solid var(--cg-200); font-size: 13px; flex-shrink: 0; }
+.breadcrumb-bar a { color: var(--cg-500); text-decoration: none; }
+.breadcrumb-bar .sep { margin: 0 6px; color: var(--cg-300); }
+.breadcrumb-bar .current { font-weight: 600; color: var(--cg-900); }
+.breadcrumb-bar .close-x { margin-left: auto; background: none; border: none; font-size: 20px; color: var(--cg-400); cursor: pointer; }
+.stepper { display: flex; align-items: center; justify-content: center; padding: 14px 32px; background: #fff; border-bottom: 1px solid var(--cg-200); flex-shrink: 0; }
+.step { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 6px; }
+.step.on { background: var(--sky-50); }
+.step-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.step.on .step-num { background: var(--sky-700); color: #fff; }
+.step.done .step-num { background: var(--grass-600); color: #fff; }
+.step:not(.on):not(.done) .step-num { background: var(--cg-200); color: var(--cg-600); }
+.step-label { font-size: 13px; font-weight: 500; color: var(--cg-700); }
+.step.on .step-label { color: var(--sky-700); font-weight: 600; }
+.conn { width: 28px; height: 2px; background: var(--cg-200); margin: 0 4px; border-radius: 1px; }
+.conn.done { background: var(--grass-600); }
 
-    /* ── Left Rail ── */
-    .left-rail {
-      width: 212px;
-      padding: 20px 0 20px 0;
-      flex-shrink: 0;
-      margin-left: 102px;
-    }
-    .rail-heading {
-      font-size: 12px;
-      color: var(--text-primary);
-      letter-spacing: 0.2px;
-      padding: 0 8px 8px 32px;
-    }
-    .rail-item {
-      display: flex;
-      align-items: center;
-      padding: 9px 12px 9px 32px;
-      font-size: 14px;
-      color: var(--text-primary);
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .rail-item.active {
-      background: var(--neutral100);
-      font-weight: 500;
-    }
+/* WIZARD BODY */
+.wiz-area { background: var(--cg-50); display: flex; flex-direction: column; align-items: center; padding: 24px; flex: 1; overflow-y: auto; }
+.wiz-layout { display: flex; gap: 24px; width: 860px; align-items: flex-start; }
+.wiz-main { width: 600px; flex-shrink: 0; }
+.wiz-area > h2 { width: 860px; font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.wiz-tip { width: 220px; flex-shrink: 0; }
+.wiz-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 32px; background: #fff; border-top: 1px solid var(--cg-200); flex-shrink: 0; }
+.wiz-footer .ctx { font-size: 13px; color: var(--cg-400); }
+.wiz-footer .actions { display: flex; gap: 10px; }
 
-    /* ── Content Area ── */
-    .content-area {
-      flex: 1;
-      padding: 0 70px 32px 0;
-    }
+/* TIP CARD */
+.tip-card { background: #fff; border: 1px solid var(--cg-200); border-radius: 8px; overflow: hidden; }
+.tip-header { background: var(--sky-50); color: var(--sky-700); font-size: 13px; font-weight: 600; padding: 8px 16px; text-align: center; border-bottom: 1px solid var(--sky-200); }
+.tip-body { padding: 16px; font-size: 13px; color: var(--cg-600); line-height: 1.6; }
+.tip-body strong { color: var(--cg-900); font-weight: 600; }
+.tip-body ol { padding-left: 18px; margin: 6px 0; }
+.tip-body li { margin-bottom: 6px; }
+.tip-why { border-top: 1px solid var(--cg-200); margin-top: 14px; padding-top: 12px; }
+.tip-why strong { display: block; margin-bottom: 4px; }
 
-    /* ── Page Header ── */
-    .page-header {
-      background: var(--neutral50);
-      padding: 16px 0 16px 1px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-    }
-    .page-title {
-      font-size: 24px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 36px;
-    }
+/* TABS */
+.tabs { display: flex; border-bottom: 2px solid var(--cg-200); margin-bottom: 20px; }
+.tab { padding: 8px 18px; font-size: 14px; font-weight: 500; color: var(--cg-500); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+.tab.on { color: var(--plum-600); border-bottom-color: var(--plum-500); }
 
-    /* ── Table Card ── */
-    .table-card {
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 0;
-    }
+/* SECTIONS */
+.sec { background: #fff; border: 1px solid var(--cg-200); border-radius: 8px; margin-bottom: 12px; }
+.sec-head { padding: 12px 16px; font-size: 14px; font-weight: 600; border-bottom: 1px solid var(--cg-100); }
+.sec-body { padding: 12px 16px; }
+.toggle-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+.toggle { width: 36px; height: 20px; border-radius: 999px; background: var(--cg-300); position: relative; flex-shrink: 0; }
+.toggle.on { background: var(--plum-500); }
+.toggle .k { width: 16px; height: 16px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.toggle.on .k { left: 18px; }
+.toggle-info { flex: 1; }
+.toggle-label { font-size: 14px; font-weight: 500; }
+.toggle-desc { font-size: 12px; color: var(--cg-400); }
+.dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 6px; }
+.dot-r { background: var(--tomato-500); }
+.sel { padding: 4px 8px; padding-right: 22px; border: 1px solid var(--cg-200); border-radius: 4px; font-size: 12px; font-family: var(--font); background: #fff; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4L5 6.5L7.5 4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 6px center; }
+.toggle-group { display: inline-flex; border: 1px solid var(--cg-200); border-radius: 6px; overflow: hidden; }
+.toggle-group button { padding: 4px 12px; font-size: 12px; font-weight: 500; font-family: var(--font); border: none; background: #fff; color: var(--cg-600); }
+.toggle-group button.active { background: var(--plum-500); color: #fff; }
+.platform-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.platform-chip { padding: 5px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; border: 1px solid var(--cg-200); background: #fff; color: var(--cg-700); }
+.platform-chip.selected { background: var(--grass-50); border-color: var(--grass-500); color: var(--grass-600); }
+.info-banner { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 16px; background: var(--cg-50); color: var(--cg-600); border: 1px solid var(--cg-200); }
+.info-banner svg { flex-shrink: 0; }
+.platform-list { list-style: none; }
+.platform-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--cg-100); font-size: 14px; }
+.platform-list li:last-child { border-bottom: none; }
+.platform-list .cb { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--cg-300); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.platform-list .cb.on { background: var(--plum-500); border-color: var(--plum-500); }
+.platform-list .cb.on::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+.form-group { margin-bottom: 14px; }
+.form-label { font-size: 12px; font-weight: 500; color: var(--cg-600); margin-bottom: 4px; }
+.form-input { width: 100%; padding: 8px 12px; border: 1px solid var(--cg-200); border-radius: 6px; font-size: 14px; font-family: var(--font); background: #fff; }
+.form-hint { font-size: 12px; color: var(--cg-400); margin-top: 4px; }
 
-    /* Title Area */
-    .title-area {
-      background: var(--bg-card);
-      padding: 24px;
-      border-bottom: 1px solid var(--neutral100);
-    }
-    .title-area h2 {
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 28px;
-      color: var(--text-primary);
-    }
-    .title-area p {
-      font-size: 14px;
-      line-height: 18px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
+/* BRAND SAFETY TABLE */
+.bs-desc { font-size: 12px; color: var(--cg-500); margin-bottom: 10px; line-height: 1.5; }
+.bs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bs-table th { text-align: left; padding: 8px 0; font-size: 11px; font-weight: 600; color: var(--cg-500); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--cg-200); }
+.bs-table th:last-child { text-align: right; }
+.bs-table td { padding: 8px 0; border-bottom: 1px solid var(--cg-100); vertical-align: middle; }
+.bs-table tr:last-child td { border-bottom: none; }
+.bs-cat { display: flex; align-items: center; gap: 8px; }
+.bs-lock { color: var(--cg-300); flex-shrink: 0; }
+.bs-chip { display: inline-flex; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; border: 1px solid var(--cg-200); color: var(--cg-500); background: var(--cg-50); }
+.bs-tier { text-align: right; }
+.bs-separator { padding: 10px 0 4px !important; border-bottom: none !important; }
+.bs-separator td { font-size: 11px; font-weight: 600; color: var(--cg-400); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--cg-200) !important; background: var(--cg-50); padding: 6px 8px !important; }
+.btn-add { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; font-family: var(--font); border: 1px solid var(--cg-200); background: #fff; color: var(--cg-700); cursor: pointer; }
 
-    /* Action Bar */
-    .action-bar {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--neutral100);
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      height: 90px;
-    }
-    .search-input {
-      width: 200px;
-      border: none;
-      border-bottom: 1px solid var(--input-border);
-      padding: 4px 36px 4px 4px;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--text-primary);
-      outline: none;
-      background: transparent;
-      position: relative;
-    }
-    .search-wrapper {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
-    .search-clear {
-      position: absolute;
-      right: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-    .search-clear svg { fill: #5B5F71; }
+/* BLOCK LIST CARDS */
+.bl-card { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid var(--cg-200); border-radius: 8px; margin-bottom: 8px; }
+.bl-name { font-size: 13px; font-weight: 600; }
+.bl-count { font-size: 11px; color: var(--cg-400); }
+.bl-actions { display: flex; align-items: center; gap: 6px; }
+.bl-btn { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; font-family: var(--font); border: 1px solid var(--cg-200); background: #fff; color: var(--cg-700); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.bl-del { padding: 4px 6px; border-radius: 4px; border: 1px solid var(--cg-200); background: #fff; color: var(--cg-400); font-size: 12px; cursor: pointer; display: inline-flex; }
+.bl-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid var(--cg-200); border-radius: 8px; margin-bottom: 8px; }
+.bl-toggle-info { }
+.bl-toggle-name { font-size: 13px; font-weight: 600; }
+.bl-toggle-desc { font-size: 11px; color: var(--cg-400); }
+.bl-nested { padding-left: 14px; border-left: 2px solid var(--cg-100); margin: 0 0 8px 14px; }
+.age-chips { display: flex; gap: 4px; margin-top: 6px; }
+.age-chip { padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; border: 1px solid var(--cg-200); background: #fff; color: var(--cg-600); }
+.age-chip.on { background: var(--plum-500); color: #fff; border-color: var(--plum-500); }
+.advanced-row { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--cg-200); border-radius: 8px; margin-bottom: 8px; font-size: 12px; color: var(--plum-600); font-weight: 500; }
+.advanced-row .muted-label { color: var(--cg-400); font-weight: 400; }
 
-    /* Data Table */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--bg-card);
-    }
-    .data-table th {
-      text-align: left;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--neutral100);
-      line-height: 18px;
-      white-space: nowrap;
-    }
-    .data-table th .sort-icon {
-      display: inline-block;
-      width: 24px;
-      height: 16px;
-      vertical-align: middle;
-      margin-left: 4px;
-      opacity: 0.5;
-    }
-    .data-table td {
-      font-size: 14px;
-      padding: 12px;
-      border-bottom: 1px solid var(--neutral100);
-      line-height: 18px;
-      color: var(--text-primary);
-      vertical-align: middle;
-    }
-    .data-table .col-advertiser { width: 298px; }
-    .data-table .col-settings { width: 319px; }
-    .data-table .col-modified { width: 382px; }
-    .data-table .col-action { width: 57px; text-align: center; }
+/* GEO */
+.geo-inherited { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 6px; font-size: 12px; background: var(--cg-50); color: var(--cg-600); border: 1px solid var(--cg-200); margin-bottom: 10px; }
+.geo-summary { font-size: 13px; color: var(--cg-700); line-height: 1.6; }
+.geo-summary strong { font-weight: 600; }
+.geo-summary .muted { color: var(--cg-400); }
+.geo-edit { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: var(--plum-600); cursor: pointer; margin-top: 6px; background: none; border: none; font-family: var(--font); }
+.geo-hint { font-size: 11px; color: var(--cg-400); margin-top: 8px; }
 
-    .advertiser-link {
-      color: var(--action-primary);
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      position: relative;
-    }
-    .highlight-marker {
-      display: inline-block;
-      width: 12px;
-      height: 24px;
-      background: var(--highlight);
-      mix-blend-mode: multiply;
-      position: absolute;
-      left: -15px;
-      top: -3px;
-    }
-    .advertiser-cell { position: relative; padding-left: 15px; }
+/* SOCIAL SUMMARY CARD */
+.bp-summary { padding: 12px 16px; border-radius: 8px; background: var(--cg-50); border: 1px solid var(--cg-200); margin-bottom: 16px; }
+.bp-summary-title { font-size: 13px; font-weight: 600; color: var(--cg-700); display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.bp-summary-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.bp-summary-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; background: #fff; border: 1px solid var(--cg-200); color: var(--cg-600); }
+.platform-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.platform-pill { padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; border: 1px solid var(--cg-200); background: #fff; color: var(--cg-500); cursor: pointer; }
+.platform-pill.on { border-color: var(--cg-700); color: #fff; background: var(--cg-700); font-weight: 500; }
+.platform-pill.on::before { content: '✓ '; font-size: 11px; }
+.auto-status { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.auto-label { font-size: 12px; color: var(--cg-400); }
+.auto-label strong { color: var(--cg-600); font-weight: 500; }
+.auto-badge { display: inline-flex; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; background: var(--cg-100); color: var(--cg-600); }
+.sec-desc { font-size: 12px; color: var(--cg-500); line-height: 1.5; margin-bottom: 8px; }
 
-    .warning-text {
-      color: var(--msg-warning);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .warning-icon {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--msg-warning);
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .more-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--neutral500);
-    }
-
-    /* Pagination Footer */
-    .pagination-footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--neutral100);
-      padding: 12px 12px 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 62px;
-    }
-    .pagination-note {
-      font-size: 12px;
-      color: var(--text-tertiary);
-      letter-spacing: 0.2px;
-    }
-    .pagination-controls {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-    .rows-per-page {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--input-label);
-    }
-    .rows-select {
-      background: var(--bg-card);
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      padding: 5px 24px 5px 8px;
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--input-placeholder);
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%234D4D4D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 6px center;
-      cursor: pointer;
-    }
-    .pagination-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .page-count {
-      font-size: 14px;
-      color: var(--text-tertiary);
-    }
-    .page-arrows {
-      display: flex;
-      gap: 4px;
-    }
-    .page-arrow {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--neutral700);
-      font-size: 16px;
-    }
-
-    /* ── Footer ── */
-    .site-footer {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 12px;
-    }
-    .footer-text { color: var(--input-label); }
-    .footer-sep { color: var(--neutral500); }
-    .footer-link {
-      color: var(--action-primary);
-      font-weight: 500;
-      font-size: 12px;
-      text-decoration: none;
-      letter-spacing: 0.2px;
-      cursor: pointer;
-    }
-  </style>
+/* TOOLTIPS */
+.info-i { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: var(--cg-100); color: var(--cg-400); font-size: 10px; font-weight: 600; font-style: normal; cursor: help; margin-left: 6px; vertical-align: middle; flex-shrink: 0; border: 1px solid var(--cg-200); }
+.info-i:hover .tt, .info-i.show .tt { display: block; }
+.tt { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: 210px; padding: 8px 12px; background: var(--cg-900); color: #fff; font-size: 12px; font-weight: 400; line-height: 1.5; border-radius: 6px; z-index: 100; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.tt::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--cg-900); }
+</style>
 </head>
 <body>
 
-  <!-- Header Nav -->
-  <header class="header-nav">
-    <img src="dv-pinnacle-logo.svg" alt="DV Pinnacle" class="logo" />
-    <nav class="nav-items">
-      <a class="nav-item" href="#">Settings</a>
-      <a class="nav-item" href="#">Analytics</a>
-      <a class="nav-item active" href="#">Proprietary Media Gardens</a>
-      <a class="nav-item" href="#">Open Web</a>
-      <a class="nav-item" href="#">Resources</a>
-    </nav>
-  </header>
-
-  <!-- Program Bar -->
-  <div class="program-bar">
-    <span class="program-label">Program</span>
-    <select class="program-dropdown">
-      <option>Advertiser Demo</option>
-    </select>
-  </div>
-
-  <!-- Main Layout -->
-  <div class="main-layout">
-    <!-- Left Rail -->
-    <aside class="left-rail">
-      <div class="rail-heading">PMG Settings</div>
-      <div class="rail-item active">Advertiser Settings</div>
-      <div class="rail-item">Campaigns</div>
-    </aside>
-
-    <!-- Content -->
-    <main class="content-area">
-      <!-- Page Header -->
-      <div class="page-header">
-        <h1 class="page-title">Proprietary Media Garden Settings</h1>
-      </div>
-
-      <!-- Table Card -->
-      <div class="table-card">
-        <!-- Title Area -->
-        <div class="title-area">
-          <h2>Advertiser Settings</h2>
-          <p>Configure PMG Settings at the Advertiser level. These settings apply to all PMG campaigns for that Advertiser.</p>
-        </div>
-
-        <!-- Action Bar -->
-        <div class="action-bar">
-          <div class="search-wrapper">
-            <input type="text" class="search-input" value="ni" />
-            <button class="search-clear">
-              <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#5B5F71"/><path d="M7 7l6 6M13 7l-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Data Table -->
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th class="col-advertiser">Advertiser <span class="sort-icon">&#x25BF;</span></th>
-              <th class="col-settings">Configured Settings <span class="sort-icon">&#x25BF;</span></th>
-              <th class="col-modified">Last Modified <span class="sort-icon">&#x25BF;</span></th>
-              <th class="col-action"></th>
-            </tr>
-          </thead>
+<!-- ═══════════════ L1 LANDING ═══════════════ -->
+<div class="screen-label">L1 — Advertiser Settings Landing</div>
+<div class="screen">
+  <nav class="nav">
+    <div class="nav-logo">
+      <svg width="110" height="22" viewBox="0 0 584 117" fill="none"><path d="M6.4 101.2C4.7 101.2 3.08 100.5 1.88 99.3C.68 98.1 0 96.5 0 94.8V21.7c0-1.7.67-3.3 1.88-4.5C3.08 15.95 4.7 15.28 6.4 15.28s3.33.67 4.53 1.87c1.2 1.2 1.88 2.83 1.88 4.53V94.8c0 1.7-.68 3.33-1.88 4.53-1.2 1.2-2.83 1.87-4.53 1.87Z" fill="#00AEA5"/><path d="M33.94 101.2H25.61c-1.7 0-3.33-.67-4.53-1.87-1.2-1.2-1.87-2.83-1.87-4.53s.67-3.33 1.87-4.53c1.2-1.2 2.83-1.87 4.53-1.87h8.33c8-.01 15.67-3.2 21.32-8.85 5.66-5.66 8.85-13.32 8.85-21.32s-3.19-15.67-8.85-21.33C49.61 31.24 41.94 28.06 33.94 28.05H25.61c-1.7 0-3.33-.67-4.53-1.87-1.2-1.2-1.87-2.83-1.87-4.53s.67-3.33 1.87-4.53c1.2-1.2 2.83-1.87 4.53-1.87h8.33c11.4 0 22.34 4.53 30.41 12.59 8.06 8.07 12.59 19.01 12.59 30.41-.01 11.4-4.55 22.32-12.61 30.37-8.07 8.05-19 12.58-30.39 12.58Z" fill="#34AE34"/><path d="M124.33 101.24c-1.22 0-2.42-.35-3.44-1-1.03-.66-1.85-1.59-2.37-2.7L84.48 24.41c-1-1.54-1.36-3.41-1.01-5.2.36-1.8 1.4-3.38 2.91-4.42 1.51-1.03 3.36-1.44 5.17-1.14 1.81.3 3.43 1.3 4.54 2.77l34.04 75.7c.72 1.54.79 3.3.21 4.89-.58 1.59-1.77 2.89-3.31 3.61-.84.4-1.76.61-2.7.62Z" fill="#C30095"/><path d="M134 76.55c-.93 0-1.86-.2-2.7-.6-1.54-.72-2.74-2.02-3.32-3.62-.58-1.6-.5-3.36.23-4.9L150.82 18.97c.72-1.54 2.01-2.73 3.61-3.32 1.6-.58 3.36-.5 4.89.23 1.54.71 2.74 2.01 3.33 3.62.58 1.6.5 3.36-.23 4.9L139.81 72.86c-.72 1.53-2.02 2.72-3.61 3.3-1.59.58-3.34.51-4.9-.21l2.7.6Z" fill="#6E2CB1"/></svg>
+      <span style="font-size:15px;font-weight:700;color:#14113B;margin-left:4px">PINNACLE</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Settings</a><a href="#">Analytics</a><a class="on" href="#">Proprietary Media Gardens</a><a href="#">Open Web</a><a href="#">Resources</a>
+    </div>
+    <div class="nav-right"><div class="nav-sel"><span class="lbl">Program</span> Nike <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4L5 6.5 7.5 4"/></svg></div></div>
+  </nav>
+  <div class="s1-layout">
+    <div class="s1-side">
+      <div class="s1-side-label">Configure</div>
+      <a class="on" href="#">Advertiser Settings</a>
+      <a href="#">Default Settings</a>
+      <a href="#">Account Linking</a>
+      <div class="divider"></div>
+      <div class="s1-side-label">Activate</div>
+      <a href="#">Campaigns</a>
+    </div>
+    <div class="s1-main">
+      <h1>Proprietary Media Garden Settings</h1>
+      <p class="sub">Configure PMG Settings at the Advertiser level.</p>
+      <div class="card">
+        <table>
+          <thead><tr><th>Advertiser</th><th>Platforms</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
           <tbody>
-            <tr>
-              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike LA</a></td>
-              <td><span class="warning-text"><span class="warning-icon">!</span> Not configured</span></td>
-              <td>-</td>
-              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
-            </tr>
-            <tr>
-              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike Seattle</a></td>
-              <td>Meta</td>
-              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
-              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
-            </tr>
-            <tr>
-              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike Portland</a></td>
-              <td>Tiktok, YouTube</td>
-              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
-              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
-            </tr>
-            <tr>
-              <td class="advertiser-cell"><span class="highlight-marker"></span><a class="advertiser-link" href="#">Nike New York</a></td>
-              <td>Twitter</td>
-              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
-              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
-            </tr>
-            <tr>
-              <td><a class="advertiser-link" href="#">Advertiser Demo</a></td>
-              <td>Brand Suitability, Viewability, Fraud</td>
-              <td>06/04/2022, 11:00 AM EDT by Settings-everest+lei@do...</td>
-              <td class="col-action"><button class="more-btn">&#x22EE;</button></td>
-            </tr>
+            <tr><td style="font-weight:500">Nike</td><td class="muted">—</td><td><span class="chip chip-gray"><span class="d"></span>Not Started</span></td><td style="text-align:right"><button class="btn btn-brand">Configure</button></td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!-- Pagination Footer -->
-        <div class="pagination-footer">
-          <span class="pagination-note">Dates are displayed in the MM/DD/YYYY format</span>
-          <div class="pagination-controls">
-            <div class="rows-per-page">
-              <span>Rows per page</span>
-              <select class="rows-select">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-              </select>
-            </div>
-            <div class="pagination-info">
-              <span class="page-count">1-10 of 20</span>
-              <div class="page-arrows">
-                <button class="page-arrow">&#x2758;&#x276E;</button>
-                <button class="page-arrow">&#x276E;</button>
-                <button class="page-arrow">&#x276F;</button>
-                <button class="page-arrow">&#x276F;&#x2758;</button>
-              </div>
-            </div>
-          </div>
+<!-- ═══════════════ STEP 1 — BRAND POLICY ═══════════════ -->
+<div class="screen-label">Step 1 — Default Settings › Brand Policy</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step on"><div class="step-num">1</div><div class="step-label">Default Settings</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Default Settings</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="tabs"><div class="tab on">Brand Policy</div><div class="tab">Open Web</div><div class="tab">Social</div></div>
+      <div class="sec"><div class="sec-head">Viewability</div><div class="sec-body">
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Standard Viewability <i class="info-i show">i<span class="tt">MRC standard: 50% pixels in view for 1 sec (display) or 2 sec (video).</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Fraud</div><div class="sec-body">
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Standard Fraud &amp; IVT <i class="info-i">i<span class="tt">Monitors for bots, malware, ad injection, and other sophisticated invalid traffic.</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Brand Safety <i class="info-i">i<span class="tt">Set risk thresholds per content category. High = strictest avoidance.</span></i></div><div class="sec-body">
+        <table class="bs-table"><tbody>
+          <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6.5a3 3 0 016 0" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4" r="2.5" stroke="currentColor" stroke-width="1.2"/></svg> Adult &amp; Sexual</div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+          <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6.5a3 3 0 016 0" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4" r="2.5" stroke="currentColor" stroke-width="1.2"/></svg> Alcohol</div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+          <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6.5a3 3 0 016 0" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4" r="2.5" stroke="currentColor" stroke-width="1.2"/></svg> Terrorism</div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+          <tr><td colspan="2" style="padding:6px 0;font-size:11px;color:var(--cg-400);border-bottom:none">+ 9 more categories configured</td></tr>
+        </tbody></table>
+        <div class="geo-hint">12 categories globally applied. Channel specialists can add channel-only categories in their own settings.</div>
+      </div></div>
+      <div class="sec"><div class="sec-head" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-600)" stroke-width="1.2"><circle cx="7" cy="7" r="6"/><path d="M1 7h12M7 1c-2 2.5-2 8 0 12M7 1c2 2.5 2 8 0 12"/></svg> Geo</div><div class="sec-body">
+        <div class="geo-summary"><strong>Include</strong> impressions from <strong>3 countries</strong>, <strong>4 regions</strong>, <strong>4 DMA/MMA</strong>, <strong>6 zip codes</strong><br><span class="muted">United States, Canada, United Kingdom + 14 more entries</span></div>
+        <button class="geo-edit">Edit geo list &rsaquo;</button>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How It Works</div>
+      <div class="tip-body">
+        <ol><li><strong>Brand Policy</strong> sets global defaults for viewability, fraud, and brand safety.</li><li><strong>Open Web</strong> and <strong>Social</strong> inherit these — you only configure overrides.</li></ol>
+        <div class="tip-why"><strong>Why?</strong><p>One source of truth prevents drift between channels.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 1 of 3</div><div class="actions"><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
+
+<!-- ═══════════════ STEP 1 — OPEN WEB ═══════════════ -->
+<div class="screen-label">Step 1 — Default Settings › Open Web</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step on"><div class="step-num">1</div><div class="step-label">Default Settings</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Default Settings</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="tabs"><div class="tab">Brand Policy</div><div class="tab on">Open Web</div><div class="tab">Social</div></div>
+      <div class="info-banner"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#6B7280" stroke-width="1.5"/><path d="M5 8.5L7 10.5L11 6" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Brand Policy defaults are inherited. Only configure overrides below.</div>
+      <div class="sec"><div class="sec-head">Viewability</div><div class="sec-body">
+        <div class="toggle-row" style="border-bottom:1px solid var(--cg-100);padding-bottom:6px"><div class="toggle-info"><div class="toggle-label">Display <i class="info-i">i<span class="tt">% of ad pixels visible for 1+ second on screen.</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Video <i class="info-i">i<span class="tt">% of video pixels visible for 2+ continuous seconds.</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Fraud</div><div class="sec-body">
+        <div class="toggle-row" style="border-bottom:1px solid var(--cg-100);padding-bottom:6px"><div class="toggle-info"><div class="toggle-label">Browser-level Bot Fraud <i class="info-i">i<span class="tt">Detects non-human traffic at the browser level before the ad renders.</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Site Fraud / IVT <i class="info-i">i<span class="tt">Identifies fraudulent inventory at the site or app level.</span></i></div></div><div class="toggle on"><div class="k"></div></div></div>
+      </div></div>
+
+      <!-- BRAND SAFETY -->
+      <div class="sec"><div class="sec-head">Brand Safety <i class="info-i">i<span class="tt">Set risk thresholds per content category. High = strictest avoidance.</span></i></div><div class="sec-body">
+        <table class="bs-table">
+          <thead><tr><th>Category</th><th>Risk Tier</th></tr></thead>
+          <tbody>
+            <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Adult &amp; Sexual <span class="bs-chip">From Brand Policy</span></div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+            <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Alcohol <span class="bs-chip">From Brand Policy</span></div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+            <tr><td><div class="bs-cat"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Terrorism <span class="bs-chip">From Brand Policy</span></div></td><td class="bs-tier"><select class="sel"><option>High</option></select></td></tr>
+            <tr><td colspan="2" style="padding:6px 0;font-size:11px;color:var(--cg-400);border-bottom:none">+ 8 more inherited from Brand Policy</td></tr>
+            <tr class="bs-separator"><td colspan="2">Available to Add</td></tr>
+            <tr><td>Politics</td><td class="bs-tier" style="display:flex;align-items:center;gap:6px;justify-content:flex-end"><select class="sel"><option>Medium</option></select><button class="btn-add">+ Add</button></td></tr>
+            <tr><td>Sensitive Social Issues</td><td class="bs-tier" style="display:flex;align-items:center;gap:6px;justify-content:flex-end"><select class="sel"><option>Medium</option></select><button class="btn-add">+ Add</button></td></tr>
+            <tr><td colspan="2" style="padding:6px 0;font-size:11px;color:var(--cg-400);border-bottom:none">+ 4 more available</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+
+      <!-- CUSTOM BLOCK LISTS -->
+      <div class="sec"><div class="sec-head" style="color:var(--plum-600)">Custom Block Lists</div><div class="sec-body">
+        <div class="bl-card"><div><div class="bl-name">Not brand-safe sites</div><div class="bl-count">500 sites</div></div><div class="bl-actions"><button class="bl-btn"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1v8M1 5.5l4 3.5 4-3.5"/></svg> Upload file</button><button class="bl-del">🗑</button><button class="bl-btn">&rsaquo; Edit inline</button></div></div>
+        <div class="bl-card"><div><div class="bl-name">Not brand-safe keywords</div><div class="bl-count">113 keywords</div></div><div class="bl-actions"><button class="bl-btn"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1v8M1 5.5l4 3.5 4-3.5"/></svg> Upload file</button><button class="bl-del">🗑</button><button class="bl-btn">&rsaquo; Edit inline</button></div></div>
+        <div class="bl-toggle-row"><div class="bl-toggle-info"><div class="bl-toggle-name">App-specific services</div><div class="bl-toggle-desc">100 apps · 2 stars or lower · Age 17+</div></div><div class="toggle on"><div class="k"></div></div></div>
+        <div class="bl-toggle-row"><div class="bl-toggle-info"><div class="bl-toggle-name">CTV-specific services</div><div class="bl-toggle-desc">CTV app blocklist, star rating, age ratings</div></div><div class="toggle"><div class="k"></div></div></div>
+      </div></div>
+
+      <!-- GEO -->
+      <div class="sec"><div class="sec-head" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-600)" stroke-width="1.2"><circle cx="7" cy="7" r="6"/><path d="M1 7h12M7 1c-2 2.5-2 8 0 12M7 1c2 2.5 2 8 0 12"/></svg> Geo</div><div class="sec-body">
+        <div class="geo-inherited"><svg class="bs-lock" width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Geo list — inherited from Brand Policy (Include · 3 countries · 4 regions · 4 dma/mma · 6 zip codes)</div>
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Override for Open Web</div><div class="toggle-desc">Use a different geo list for Open Web only. Applies to post-bid measurement.</div></div><div class="toggle"><div class="k"></div></div></div>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How It Works</div>
+      <div class="tip-body">
+        <p>Open Web inherits your Brand Policy defaults. Settings here are <strong>additive</strong> — they layer on top, not replace.</p>
+        <div class="tip-why"><strong>Why?</strong><p>Open Web has channel-specific controls (Display vs Video, individual fraud signals) that don't apply to Social.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 1 of 3</div><div class="actions"><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
+
+<!-- ═══════════════ STEP 1 — SOCIAL ═══════════════ -->
+<div class="screen-label">Step 1 — Default Settings › Social</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step on"><div class="step-num">1</div><div class="step-label">Default Settings</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Default Settings</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="tabs"><div class="tab">Brand Policy</div><div class="tab">Open Web</div><div class="tab on">Social</div></div>
+      <div class="bp-summary">
+        <div class="bp-summary-title"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Brand Policy already applies</div>
+        <div class="bp-summary-chips">
+          <span class="bp-summary-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> Viewability: Standard On</span>
+          <span class="bp-summary-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> Fraud: Standard On</span>
+          <span class="bp-summary-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> Brand Safety: 12 categories</span>
+          <span class="bp-summary-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> Geo: 3 countries · 4 regions</span>
         </div>
       </div>
-    </main>
-  </div>
+      <div class="sec"><div class="sec-head">Which social platforms do you use?</div><div class="sec-body">
+        <div class="sec-desc">Select every platform your team runs paid campaigns on. Settings below apply only to platforms you enable here.</div>
+        <div class="platform-pills"><span class="platform-pill on">Meta</span><span class="platform-pill on">TikTok</span><span class="platform-pill on">YouTube</span><span class="platform-pill">Reddit</span><span class="platform-pill">X</span><span class="platform-pill">Snap</span><span class="platform-pill">Pinterest</span></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Viewability</div><div class="sec-body">
+        <div class="sec-desc">Standard viewability measurement is automatically enabled on all connected social platforms.</div>
+        <div class="auto-status"><span class="auto-label">Auto-enabled on <strong>Meta, TikTok, YouTube</strong></span><span class="auto-badge">Enabled · Auto</span></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Fraud</div><div class="sec-body">
+        <div class="sec-desc">DV Fraud &amp; IVT monitoring is automatically enabled on all connected social platforms.</div>
+        <div class="auto-status"><span class="auto-label">Auto-enabled on <strong>Meta, TikTok, YouTube</strong></span><span class="auto-badge">Monitoring · Auto</span></div>
+      </div></div>
+      <div class="sec"><div class="sec-head">Brand Safety</div><div class="sec-body">
+        <div class="info-banner" style="margin-bottom:10px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> 12 categories inherited from Brand Policy and auto-mapped to each platform's native controls.</div>
+      </div></div>
+      <div class="sec"><div class="sec-head" style="display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--cg-600)" stroke-width="1.2"><circle cx="7" cy="7" r="6"/><path d="M1 7h12M7 1c-2 2.5-2 8 0 12M7 1c2 2.5 2 8 0 12"/></svg> Geo</div><div class="sec-body">
+        <div class="geo-inherited"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Inherits from Brand Policy (Include · 3 countries · 4 regions · 4 dma/mma · 6 zip codes)</div>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How It Works</div>
+      <div class="tip-body">
+        <ol><li>Select which social platforms your team runs campaigns on.</li><li>Viewability and fraud monitoring are <strong>auto-enabled</strong> on connected platforms.</li></ol>
+        <div class="tip-why"><strong>Why?</strong><p>Social platforms don't expose custom viewability controls — settings apply automatically.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 1 of 3</div><div class="actions"><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <span class="footer-text">© Copyright 2025 DoubleVerify</span>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">About Us</a>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">Contact Us</a>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">Privacy Notice</a>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">Cookie Notice</a>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">Privacy Settings</a>
-    <span class="footer-sep">|</span>
-    <a class="footer-link" href="#">Logout</a>
-  </footer>
+<!-- ═══════════════ STEP 2 — CM360 ═══════════════ -->
+<div class="screen-label">Step 2 — Account Linking › CM360</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step done"><div class="step-num">✓</div><div class="step-label">Default Settings</div></div><div class="conn done"></div>
+    <div class="step on"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Account Linking</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="sec"><div class="sec-body">
+        <div class="form-group"><div class="form-label">Platform</div><select class="form-input" style="appearance:auto"><option>CM360</option><option>DSP Seat IDs</option><option>Social Platforms</option></select></div>
+        <div class="form-group"><div class="form-label">CM360 Advertiser ID <i class="info-i">i<span class="tt">Your unique advertiser identifier from Campaign Manager 360.</span></i></div><input class="form-input" placeholder="e.g. NIKE-CM360-9821"></div>
+        <button class="btn btn-brand">Generate Link Token</button>
+        <div class="form-hint">Copy this token into CM360 → Admin → Tag Manager → DV Token field.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--cg-100)"><span style="font-size:13px;color:var(--cg-500)">Connection status</span><span class="chip chip-gray">Not connected</span></div>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How to Link</div>
+      <div class="tip-body">
+        <ol><li>Enter your CM360 Advertiser ID.</li><li>Click <strong>Generate Link Token</strong>.</li><li>Paste the token in CM360 → Admin → Tag Manager.</li></ol>
+        <div class="tip-why"><strong>Why?</strong><p>Linking CM360 enables automated tag wrapping and campaign sync.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 2 of 3</div><div class="actions"><button class="btn btn-outline">← Back</button><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
+
+<!-- ═══════════════ STEP 2 — DSP ═══════════════ -->
+<div class="screen-label">Step 2 — Account Linking › DSP Seat IDs</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step done"><div class="step-num">✓</div><div class="step-label">Default Settings</div></div><div class="conn done"></div>
+    <div class="step on"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Account Linking</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="sec"><div class="sec-body">
+        <div class="form-group"><div class="form-label">Platform</div><select class="form-input" style="appearance:auto"><option>DSP Seat IDs</option><option>CM360</option><option>Social Platforms</option></select></div>
+        <table style="font-size:13px;margin-bottom:8px"><thead><tr><th style="padding:6px 0;font-size:11px;background:transparent">DSP</th><th style="padding:6px 0;font-size:11px;background:transparent">Seat ID <i class="info-i" style="vertical-align:text-bottom">i<span class="tt">The unique ID assigned to your buying seat by each DSP.</span></i></th><th style="padding:6px 0;text-align:right;font-size:11px;background:transparent">Status</th></tr></thead><tbody>
+          <tr><td style="padding:8px 0;border-bottom:1px solid var(--cg-100)">The Trade Desk</td><td style="padding:8px 0;border-bottom:1px solid var(--cg-100)"><input class="form-input" placeholder="Enter Seat ID" style="padding:4px 8px;width:180px"></td><td style="padding:8px 0;text-align:right;border-bottom:1px solid var(--cg-100)"><span class="chip chip-green"><span class="d"></span>Enabled</span></td></tr>
+          <tr><td style="padding:8px 0">DV360</td><td style="padding:8px 0"><input class="form-input" placeholder="Enter Seat ID" style="padding:4px 8px;width:180px"></td><td style="padding:8px 0;text-align:right"><span class="chip chip-gray">—</span></td></tr>
+        </tbody></table>
+        <button class="btn btn-ghost">+ Add DSP</button>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How to Link</div>
+      <div class="tip-body">
+        <ol><li>Enter the Seat ID for each DSP you buy through.</li><li>Status updates once the DSP confirms the connection.</li></ol>
+        <div class="tip-why"><strong>Why?</strong><p>Seat IDs enable pre-bid verification and programmatic reporting.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 2 of 3</div><div class="actions"><button class="btn btn-outline">← Back</button><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
+
+<!-- ═══════════════ STEP 2 — SOCIAL PLATFORMS ═══════════════ -->
+<div class="screen-label">Step 2 — Account Linking › Social Platforms</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step done"><div class="step-num">✓</div><div class="step-label">Default Settings</div></div><div class="conn done"></div>
+    <div class="step on"><div class="step-num">2</div><div class="step-label">Account Linking</div></div><div class="conn"></div>
+    <div class="step"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>Account Linking</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="sec"><div class="sec-body">
+        <div class="form-group"><div class="form-label">Platform</div><select class="form-input" style="appearance:auto"><option>Social Platforms</option><option>CM360</option><option>DSP Seat IDs</option></select></div>
+        <div class="toggle-row" style="border-bottom:1px solid var(--cg-100);padding-bottom:8px"><div class="toggle-info"><div class="toggle-label">Meta</div><div class="toggle-desc">Business Manager</div></div><button class="btn btn-outline" style="font-size:12px">Connect</button></div>
+        <div class="toggle-row" style="border-bottom:1px solid var(--cg-100);padding-bottom:8px"><div class="toggle-info"><div class="toggle-label">TikTok</div><div class="toggle-desc">Ads Manager</div></div><button class="btn btn-outline" style="font-size:12px">Connect</button></div>
+        <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">YouTube</div><div class="toggle-desc">Google Ads</div></div><button class="btn btn-outline" style="font-size:12px">Connect</button></div>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">How to Link</div>
+      <div class="tip-body">
+        <ol><li>Click <strong>Connect</strong> next to a platform.</li><li>Authenticate with your platform credentials.</li><li>Pinnacle will sync your ad accounts automatically.</li></ol>
+        <div class="tip-why"><strong>Why?</strong><p>Connected social accounts enable measurement and reporting across your paid campaigns.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 2 of 3</div><div class="actions"><button class="btn btn-outline">← Back</button><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Continue →</button></div></div>
+</div>
+
+<!-- ═══════════════ STEP 3 — CAMPAIGNS ═══════════════ -->
+<div class="screen-label">Step 3 — Campaigns</div>
+<div class="screen">
+  <div class="breadcrumb-bar"><a href="#">← PMG Settings</a><span class="sep">›</span><a href="#">Nike</a><span class="sep">›</span><span class="current">Advertiser Settings</span><button class="close-x">&times;</button></div>
+  <div class="stepper">
+    <div class="step done"><div class="step-num">✓</div><div class="step-label">Default Settings</div></div><div class="conn done"></div>
+    <div class="step done"><div class="step-num">✓</div><div class="step-label">Account Linking</div></div><div class="conn done"></div>
+    <div class="step on"><div class="step-num">3</div><div class="step-label">Campaigns</div></div>
+  </div>
+  <div class="wiz-area"><h2>New Campaign</h2><div class="wiz-layout">
+    <div class="wiz-main">
+      <div class="sec"><div class="sec-head">Campaign Info</div><div class="sec-body">
+        <div class="form-group"><div class="form-label">Campaign Name</div><input class="form-input" value="Nike Air Max Q3"></div>
+        <div style="display:flex;gap:16px">
+          <div class="form-group" style="flex:1"><div class="form-label">Start Date</div><input class="form-input" type="date" value="2026-08-01"></div>
+          <div class="form-group" style="flex:1"><div class="form-label">End Date</div><input class="form-input" type="date" value="2026-09-30"></div>
+        </div>
+        <div class="form-group"><div class="form-label">Ad Server <i class="info-i">i<span class="tt">The ad server this campaign will traffic through for tag management.</span></i></div><select class="form-input" style="appearance:auto"><option>CM360</option><option>DV360</option></select></div>
+      </div></div>
+    </div>
+    <div class="wiz-tip"><div class="tip-card">
+      <div class="tip-header">Next Steps</div>
+      <div class="tip-body">
+        <p>Your Default Settings and linked accounts will be <strong>automatically applied</strong> to this campaign.</p>
+        <div class="tip-why"><strong>Why?</strong><p>Campaign Automator users can skip this — CM360 campaigns auto-sync with Pinnacle.</p></div>
+      </div>
+    </div></div>
+  </div></div>
+  <div class="wiz-footer"><div class="ctx">Step 3 of 3</div><div class="actions"><button class="btn btn-outline">← Back</button><button class="btn btn-outline">Save &amp; Exit</button><button class="btn btn-brand">Finish Setup</button></div></div>
+</div>
 
 </body>
 </html>
